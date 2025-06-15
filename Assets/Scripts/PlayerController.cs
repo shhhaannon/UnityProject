@@ -34,15 +34,16 @@ public class PlayerController : MonoBehaviour
         healthBar.maxValue = health;
         healthBar.value = health;
     }
-    void Update() {
+    void Update()
+    {
         float xDisplacement = Input.GetAxis("Horizontal");
         float zDisplacement = Input.GetAxis("Vertical");
         animator.SetBool("isGrounded", controller.isGrounded);
-       
+
         if (isFalling)
             xDisplacement = zDisplacement = 0.0f;
-        
-        if (controller.isGrounded) 
+
+        if (controller.isGrounded)
         {
             animator.SetBool("isFalling", false);
             moveDirection = new Vector3(xDisplacement * speed, 0, zDisplacement * speed);
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("isJumping");
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isIdling", false);
-            }                          
+            }
         }
         else
         {
@@ -73,21 +74,21 @@ public class PlayerController : MonoBehaviour
             {
                 animator.SetBool("isRunning", true);
                 animator.SetBool("isIdling", false);
-            }                
+            }
             else
             {
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isIdling", false);
-            }                
+            }
         }
         else
         {
-            controller.Move(moveDirection * Time.deltaTime);            
+            controller.Move(moveDirection * Time.deltaTime);
             if (controller.isGrounded)
             {
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isIdling", true);
-            }                
+            }
             else
             {
                 animator.SetBool("isRunning", false);
@@ -121,7 +122,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         healthBar.value -= damage;
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -143,10 +144,6 @@ public class PlayerController : MonoBehaviour
 
 
             Destroy(other.gameObject);
-
-
-
-
 
             // Optional: Add sound, score, effects, etc.Add commentMore actions
 
