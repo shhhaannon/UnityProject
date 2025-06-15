@@ -99,4 +99,17 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isFalling", true);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if the object touched has the tag "Collectible"
+        if (other.CompareTag("Collectible"))
+        {
+            // Destroy the collectible item
+            Destroy(other.gameObject);
+
+            // Optional: Add sound, score, effects, etc.
+            Debug.Log("Collected an item!");
+        }
+    }
 }

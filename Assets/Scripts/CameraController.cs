@@ -24,7 +24,8 @@ public class CameraController : MonoBehaviour
         parentTransform = transform.parent;
         // Set Initials conditions if there are wrong in editor
         parentTransform.position = player.transform.position;
-        transform.position = new Vector3(0f, 2.5f, -6.25f);
+        //transform.position = new Vector3(0f, 2.5f, -6.25f);
+        transform.position = new Vector3(0f, 1.5f, 0f);
         transform.rotation = Quaternion.Euler(9, 0, 0);
     }
     void LateUpdate()
