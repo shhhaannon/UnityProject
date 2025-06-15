@@ -32,7 +32,7 @@ public class WinTrigger : MonoBehaviour
     void Start()
     {
         // Find the player in the scene using the PlayerController component
-        player = FindObjectOfType<PlayerController>().gameObject;
+        //player = FindObjectOfType<PlayerController>().gameObject;
         // Ensure victory music is not playing at start
         victoryPianoBGM.Stop();
     }
@@ -51,7 +51,7 @@ public class WinTrigger : MonoBehaviour
         winCanvas.SetActive(true);
 
         // Disable the pause menu to prevent player from pausing during victory
-        player.GetComponent<PauseMenu>().enabled = false;
+        //player.GetComponent<PauseMenu>().enabled = false;
 
         // Call the Win method on the Timer component to handle victory logic
         player.GetComponent<Timer>().Win();
