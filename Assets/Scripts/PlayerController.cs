@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
 
-    public PauseMenu pauseMenu;
 
     public Animator animator;
     public bool isFalling = false;
@@ -31,14 +30,11 @@ public class PlayerController : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
         initialPosition.y += 50;
-        pauseMenu = GetComponent<PauseMenu>();
         animator = transform.Find("ty").GetComponent<Animator>();
         healthBar.maxValue = health;
         healthBar.value = health;
     }
     void Update() {
-        if (pauseMenu.paused)
-            return;
         float xDisplacement = Input.GetAxis("Horizontal");
         float zDisplacement = Input.GetAxis("Vertical");
         animator.SetBool("isGrounded", controller.isGrounded);
@@ -126,5 +122,40 @@ public class PlayerController : MonoBehaviour
     {
         healthBar.value -= damage;
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+
+
+    {
+
+
+        // Check if the object touched has the tag "Collectible"
+
+
+        if (other.CompareTag("Collectible"))
+
+
+        {
+
+
+            // Destroy the collectible item
+
+
+            Destroy(other.gameObject);
+
+
+
+
+
+            // Optional: Add sound, score, effects, etc.Add commentMore actions
+
+
+            Debug.Log("Collected an item!");
+
+
+        }
+
+
     }
 }
