@@ -30,7 +30,16 @@ public class CameraController : MonoBehaviour
     }
     void LateUpdate()
     {
+        //if (player.isFalling)
+        //{
+        //    transform.position = new Vector3(0f, 2.5f, -6.25f);
+        //}
+        //else
+        //{
+        //    transform.position = new Vector3(0f, 1.5f, 0f);
+        //}
         parentTransform.position = player.transform.position;
+        
         if (Input.GetMouseButtonDown(1))
             mouseDown = true;
         if (Input.GetMouseButtonUp(1))

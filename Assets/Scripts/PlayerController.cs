@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     public bool isFalling = false;
+    public float health = 100f;
+    public Slider healthBar;
 
     void Start()
     {
@@ -30,6 +33,8 @@ public class PlayerController : MonoBehaviour
         initialPosition.y += 50;
         pauseMenu = GetComponent<PauseMenu>();
         animator = transform.Find("ty").GetComponent<Animator>();
+        healthBar.maxValue = health;
+        healthBar.value = health;
     }
     void Update() {
         if (pauseMenu.paused)
@@ -37,6 +42,7 @@ public class PlayerController : MonoBehaviour
         float xDisplacement = Input.GetAxis("Horizontal");
         float zDisplacement = Input.GetAxis("Vertical");
         animator.SetBool("isGrounded", controller.isGrounded);
+       
         if (isFalling)
             xDisplacement = zDisplacement = 0.0f;
         
@@ -96,20 +102,29 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = initialPosition;
             transform.rotation = initialRotation;
+            healthBar.maxValue = health;
+            healthBar.value = health;
             animator.SetBool("isFalling", true);
+        }
+        if (healthBar.value <= 0f)
+        {
+            //Vector3 resetPosition = initialPosition;
+            //resetPosition.y = 20f;
+            animator.SetBool("isFalling", true);
+            animator.SetBool("isGrounded", false);
+            animator.SetBool("isIdling", false);
+            controller.enabled = false;
+            transform.position = initialPosition;
+            transform.rotation = initialRotation;
+            healthBar.maxValue = health;
+            healthBar.value = health;
+            controller.enabled = true;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void TakeDamage(float damage)
     {
-        // Check if the object touched has the tag "Collectible"
-        if (other.CompareTag("Collectible"))
-        {
-            // Destroy the collectible item
-            Destroy(other.gameObject);
-
-            // Optional: Add sound, score, effects, etc.
-            Debug.Log("Collected an item!");
-        }
+        healthBar.value -= damage;
+        
     }
 }
